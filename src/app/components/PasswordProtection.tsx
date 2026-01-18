@@ -37,9 +37,9 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
         {/* Sheep Image */}
         <div className="text-center mb-8">
           <img 
-            src="/media/sheep3.png" 
+            src="/media/sheep-success.png" 
             alt="ClaimGrade sheep" 
-            className="h-48 w-auto mx-auto mb-6"
+            className="h-72 w-auto mx-auto mb-6"
           />
         </div>
 
