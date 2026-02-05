@@ -82,17 +82,9 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
   return (
     <div 
       className="min-h-screen flex items-center justify-center"
-      style={{ backgroundColor: '#0B4F8C' }}
+      style={{ backgroundColor: '#041e42' }}
     >
       <div className="max-w-md w-full mx-auto px-6">
-        {/* Sheep Image */}
-        <div className="text-center mb-8">
-          <img 
-            src="/media/sheep-success.png" 
-            alt="ClaimGrade sheep" 
-            className="h-72 w-auto mx-auto mb-6"
-          />
-        </div>
 
         {/* Card */}
         <div 
@@ -101,15 +93,15 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
           <h1 
             className="text-4xl uppercase text-center mb-2"
             style={{ 
-              fontFamily: 'Impact, sans-serif',
+              fontFamily: 'Georgia, "Times New Roman", serif',
               fontWeight: '700',
-              color: '#0B4F8C'
+              color: '#041e42'
             }}
           >
             Coming Soon
           </h1>
           
-          <p className="text-center mb-6" style={{ color: '#5A6F7F' }}>
+          <p className="text-center mb-6" style={{ color: '#4a5568' }}>
             ClaimGrade is currently in private beta. Enter the access code to continue.
           </p>
 
@@ -139,9 +131,9 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
               type="submit"
               className="w-full rounded-full py-4 uppercase transition-opacity hover:opacity-90"
               style={{ 
-                backgroundColor: '#F8BBD0',
-                color: '#0B4F8C',
-                fontFamily: 'Impact, sans-serif',
+                backgroundColor: '#f8f7eb',
+                color: '#041e42',
+                fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: '700',
                 letterSpacing: '1px'
               }}
@@ -150,7 +142,7 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
             </button>
           </form>
 
-          <p className="text-xs text-center mt-6" style={{ color: '#5A6F7F' }}>
+          <p className="text-xs text-center mt-6" style={{ color: '#4a5568' }}>
             Don't have access? <button onClick={() => setShowWaitlistModal(true)} className="underline">Request early access</button>
           </p>
         </div>
@@ -170,9 +162,9 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
               <h2 
                 className="text-3xl uppercase"
                 style={{ 
-                  fontFamily: 'Impact, sans-serif',
+                  fontFamily: 'Georgia, "Times New Roman", serif',
                   fontWeight: '700',
-                  color: '#0B4F8C'
+                  color: '#041e42'
                 }}
               >
                 Request Early Access
@@ -187,28 +179,23 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
 
             {formStatus === 'success' ? (
               <div className="text-center py-8">
-                <img 
-                  src="/media/sheep-success.png" 
-                  alt="Success" 
-                  className="h-32 w-auto mx-auto mb-4"
-                />
                 <h3 
                   className="text-xl uppercase mb-2"
                   style={{ 
-                    fontFamily: 'Impact, sans-serif',
+                    fontFamily: 'Georgia, "Times New Roman", serif',
                     fontWeight: '700',
-                    color: '#0B4F8C'
+                    color: '#041e42'
                   }}
                 >
                   You're on the list!
                 </h3>
-                <p style={{ color: '#5A6F7F' }}>
+                <p style={{ color: '#4a5568' }}>
                   Our team has received your information and will be in touch.
                 </p>
               </div>
             ) : (
               <>
-                <p className="text-sm mb-6" style={{ color: '#5A6F7F' }}>
+                <p className="text-sm mb-6" style={{ color: '#4a5568' }}>
                   Join our private beta and be among the first to experience ClaimGrade.
                 </p>
 
@@ -248,16 +235,16 @@ export function PasswordProtection({ onAuthenticated }: PasswordProtectionProps)
                     disabled={formStatus === 'submitting'}
                     className="w-full rounded-full py-4 uppercase transition-opacity hover:opacity-90 disabled:opacity-50"
                     style={{ 
-                      backgroundColor: '#0B4F8C',
+                      backgroundColor: '#041e42',
                       color: 'white',
-                      fontFamily: 'Impact, sans-serif',
+                      fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: '700',
                       letterSpacing: '1px'
                     }}
                   >
                     {formStatus === 'submitting' ? 'SUBMITTING...' : 'SUBMIT'}
                   </button>
-                  <p className="text-xs text-center" style={{ color: '#5A6F7F' }}>
+                  <p className="text-xs text-center" style={{ color: '#4a5568' }}>
                     By submitting this form, you agree to receive updates and communications from ClaimGrade regarding early access and our official launch.
                   </p>
                   {formStatus === 'error' && (
