@@ -3,7 +3,134 @@ import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 import shieldLogo from '@/assets/shield-logo.png';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Shared hero content (copy + CTAs) used by all concepts
+function HeroContent({ animClass = '' }: { animClass?: string }) {
+  return (
+    <div className={`max-w-6xl mx-auto px-6 text-center relative z-10 ${animClass}`}>
+      <h1
+        className="text-4xl sm:text-5xl md:text-7xl uppercase mb-6 md:mb-8 leading-none"
+        style={{
+          fontFamily: 'Georgia, "Times New Roman", serif',
+          fontWeight: '900',
+          letterSpacing: '-1px'
+        }}
+      >
+        <div className="text-white hero-line-1">AUTONOMOUSLY REVIEW</div>
+        <div className="inline-block relative mt-2 hero-line-2">
+          <div
+            className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
+            style={{ backgroundColor: '#f8f7eb', zIndex: -1 }}
+          />
+          <span style={{ color: '#041e42' }}>CHART NOTES</span>
+        </div>
+      </h1>
+
+      <p className="text-white/80 mx-auto mb-8 md:mb-10 text-base md:text-lg hero-subtext" style={{ maxWidth: '605px' }}>
+        A tool purpose-built to review chart notes for policy compliance and accuracy – it's like having an expert looking over your shoulder.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center hero-ctas">
+        <a
+          href="#how-it-works"
+          className="group px-6 sm:px-8 py-3 sm:py-4 rounded-full uppercase text-sm sm:text-base transition-all duration-300 hover:shadow-lg hover:shadow-[#f8f7eb]/10 hover:scale-[1.02]"
+          style={{
+            backgroundColor: '#f8f7eb',
+            color: '#041e42',
+            fontFamily: 'Georgia, "Times New Roman", serif',
+            fontWeight: '700',
+            letterSpacing: '1px'
+          }}
+        >
+          See how it works
+        </a>
+        <a
+          href="#waitlist"
+          className="px-6 sm:px-8 py-3 sm:py-4 rounded-full uppercase text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]"
+          style={{
+            color: '#f8f7eb',
+            fontFamily: 'Georgia, "Times New Roman", serif',
+            fontWeight: '700',
+            letterSpacing: '1px',
+            border: '1px solid rgba(248,247,235,0.3)',
+            background: 'rgba(248,247,235,0.05)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          Sign up for waitlist
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// CONCEPT 1: The Living Document
+function HeroLivingDocument() {
+  const docLines = [
+    'Patient presented with complaints of pain in the residual limb...',
+    'Physical examination reveals well-healed surgical site...',
+    'Range of motion testing indicates 120 degrees flexion...',
+    'Prosthetic alignment evaluated under static and dynamic conditions...',
+    'Gait analysis performed on level surfaces and inclines...',
+    'Socket fit assessed with patient in standing position...',
+    'No signs of skin breakdown or pressure areas noted...',
+    'Functional mobility assessed using standard outcome measures...',
+    'Patient demonstrates independent donning and doffing...',
+    'Recommendation: continued prosthetic rehabilitation program...',
+    'Insurance verification completed for L5301, L5400...',
+    'Prior authorization obtained, reference number 4829301...',
+    'Clinical documentation supports medical necessity criteria...',
+    'Follow-up appointment scheduled in 30 days...',
+    'Billing codes reviewed and cross-referenced with policy...',
+    'All documentation requirements for L-code verified...',
+  ];
+
+  return (
+    <section className="py-12 md:py-20 pb-40 md:pb-56 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #041e42 0%, #0a2a52 40%, #061f3d 100%)' }}>
+      {/* Scrolling document lines — fill entire hero */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="doc-scroll-container absolute inset-0" style={{ opacity: 0.06 }}>
+          {[...docLines, ...docLines, ...docLines, ...docLines, ...docLines, ...docLines].map((line, i) => (
+            <div
+              key={i}
+              className="text-white text-sm font-mono whitespace-nowrap mb-2 doc-line"
+              style={{
+                paddingLeft: `${(i * 47) % 120}px`,
+              }}
+            >
+              {`${line}  //  ${docLines[(i + 3) % docLines.length]}  //  ${docLines[(i + 7) % docLines.length]}  //  ${docLines[(i + 11) % docLines.length]}`}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scanning highlight beam */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="scan-beam absolute left-0 right-0 h-12"
+          style={{
+            background: 'linear-gradient(180deg, transparent, rgba(248,247,235,0.08), transparent)',
+          }}
+        />
+      </div>
+
+      {/* Grain */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '256px 256px'
+        }}
+      />
+
+      {/* Vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(4,30,66,0.95) 80%)' }} />
+
+      <HeroContent />
+    </section>
+  );
+}
 
 export function ClaimGradeHomepage() {
   const [formData, setFormData] = useState({
@@ -58,20 +185,20 @@ export function ClaimGradeHomepage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: 'Inter' }}>
       {/* Header */}
-      <header 
-        className="py-6 sticky top-0 z-50"
+      <header
+        className="py-4 md:py-6 sticky top-0 z-50"
         style={{ backgroundColor: '#041e42' }}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <img
               src={shieldLogo}
               alt="ClaimGrade"
-              className="h-10 w-auto"
+              className="h-8 md:h-10 w-auto"
             />
             <span
-              className="text-2xl tracking-wide"
+              className="text-lg md:text-2xl tracking-wide"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: '700',
@@ -84,21 +211,11 @@ export function ClaimGradeHomepage() {
           </div>
 
           {/* Nav Buttons */}
-          <div className="flex items-center gap-6">
-            <button
-              className="uppercase text-white transition-opacity hover:opacity-80"
-              style={{ 
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                fontWeight: '700',
-                letterSpacing: '1px'
-              }}
-            >
-              Login
-            </button>
+          <div className="flex items-center">
             <a
               href="#waitlist"
-              className="px-6 py-3 rounded-full uppercase transition-opacity hover:opacity-90"
-              style={{ 
+              className="px-4 md:px-6 py-2 md:py-3 rounded-full uppercase text-xs md:text-base transition-opacity hover:opacity-90"
+              style={{
                 backgroundColor: '#f8f7eb',
                 color: '#041e42',
                 fontFamily: 'Georgia, "Times New Roman", serif',
@@ -113,106 +230,10 @@ export function ClaimGradeHomepage() {
       </header>
 
       {/* Hero Section */}
-      <section
-        className="py-20 pb-56 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #041e42 0%, #0a2a52 40%, #061f3d 100%)' }}
-      >
-        {/* Grain texture overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-            backgroundSize: '256px 256px'
-          }}
-        />
-
-        {/* Subtle dot grid */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(248,247,235,0.07) 1px, transparent 1px)',
-            backgroundSize: '32px 32px'
-          }}
-        />
-
-        {/* Accent glow behind headline */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          style={{
-            width: '800px',
-            height: '400px',
-            background: 'radial-gradient(ellipse, rgba(248,247,235,0.06) 0%, transparent 70%)',
-          }}
-        />
-
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-
-          <h1
-            className="text-7xl uppercase mb-8 leading-none hero-headline"
-            style={{
-              fontFamily: 'Georgia, "Times New Roman", serif',
-              fontWeight: '900',
-              letterSpacing: '-1px'
-            }}
-          >
-            <div className="text-white hero-line-1">AUTONOMOUSLY REVIEW</div>
-            <div className="inline-block relative mt-2 hero-line-2">
-              <div
-                className="absolute inset-0 -inset-x-4 -inset-y-2"
-                style={{ backgroundColor: '#f8f7eb', zIndex: -1 }}
-              />
-              <span style={{ color: '#041e42' }}>CHART NOTES</span>
-            </div>
-          </h1>
-
-          <p className="text-white/80 mx-auto mb-10 text-lg hero-subtext" style={{ maxWidth: '605px' }}>
-            A tool purpose-built to review clinical documentation for policy compliance and accuracy – it's like having an expert looking over your shoulder.
-          </p>
-
-          <div className="flex gap-4 justify-center hero-ctas">
-            <a
-              href="#how-it-works"
-              className="group px-8 py-4 rounded-full uppercase transition-all duration-300 hover:shadow-lg hover:shadow-[#f8f7eb]/10 hover:scale-[1.02]"
-              style={{
-                backgroundColor: '#f8f7eb',
-                color: '#041e42',
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                fontWeight: '700',
-                letterSpacing: '1px'
-              }}
-            >
-              See how it works
-            </a>
-            <a
-              href="#waitlist"
-              className="px-8 py-4 rounded-full uppercase transition-all duration-300 hover:scale-[1.02]"
-              style={{
-                color: '#f8f7eb',
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                fontWeight: '700',
-                letterSpacing: '1px',
-                border: '1px solid rgba(248,247,235,0.3)',
-                background: 'rgba(248,247,235,0.05)',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              Sign up for waitlist
-            </a>
-          </div>
-        </div>
-
-        {/* Subtle edge vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)'
-          }}
-        />
-      </section>
+      <HeroLivingDocument />
 
       {/* Floating Product Preview - Realistic Screenshot */}
-      <section className="relative -mt-40 mb-16">
+      <section className="relative -mt-20 md:-mt-40 mb-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
             {/* Browser Chrome */}
@@ -235,11 +256,11 @@ export function ClaimGradeHomepage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-center gap-8 mb-16">
+      <section id="how-it-works" className="py-10 md:py-16">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-center gap-8 mb-10 md:mb-16">
             <h2
-              className="text-7xl uppercase leading-none"
+              className="text-4xl sm:text-5xl md:text-7xl uppercase leading-none"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: '900',
@@ -247,17 +268,13 @@ export function ClaimGradeHomepage() {
               }}
             >
               <div style={{ color: '#041e42' }}>THREE SIMPLE</div>
-              <div className="inline-block relative mt-2">
-                <div
-                  className="absolute inset-0 -inset-x-4 -inset-y-2"
+              <div style={{ color: '#041e42' }} className="mt-2">STEPS TO <span className="inline relative"><span
+                  className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
                   style={{ backgroundColor: '#f8f7eb', zIndex: 0 }}
-                />
-                <span className="relative z-10" style={{ color: '#041e42' }}>STEPS TO VALIDATE</span>
-              </div>
-              <br />
+                /><span className="relative z-10">VALIDATE</span></span></div>
               <div className="inline-block relative mt-2">
                 <div
-                  className="absolute inset-0 -inset-x-4 -inset-y-2"
+                  className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
                   style={{ backgroundColor: '#f8f7eb', zIndex: 0 }}
                 />
                 <span className="relative z-10" style={{ color: '#041e42' }}>CHART NOTES</span>
@@ -266,19 +283,18 @@ export function ClaimGradeHomepage() {
           </div>
 
           {/* Vertical Stack of Steps */}
-          <div className="space-y-20">
+          <div className="space-y-12 md:space-y-20">
             {/* Step 1 */}
-            <div className="grid md:grid-cols-5 gap-12 items-center">
-              {/* Left - Text (2 columns) */}
+            <div className="grid md:grid-cols-5 gap-6 md:gap-12 items-center">
               <div className="md:col-span-2">
                 <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-semibold mb-6"
+                  className="w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center text-xl md:text-2xl font-semibold mb-4 md:mb-6"
                   style={{ backgroundColor: '#f8f7eb', color: '#041e42' }}
                 >
                   01
                 </div>
                 <h3
-                  className="text-4xl uppercase mb-4"
+                  className="text-2xl md:text-4xl uppercase mb-3 md:mb-4"
                   style={{
                     fontFamily: 'Georgia, "Times New Roman", serif',
                     fontWeight: '700',
@@ -287,34 +303,30 @@ export function ClaimGradeHomepage() {
                 >
                   UPLOAD CHART NOTE
                 </h3>
-                <p className="text-lg" style={{ color: '#4a5568' }}>
-                  Drop your clinical notes PDF into ClaimGrade. Our system securely processes your documentation in seconds.
+                <p className="text-base md:text-lg" style={{ color: '#4a5568' }}>
+                  Drop your chart notes PDF into ClaimGrade. Our system securely processes your documentation in seconds.
                 </p>
               </div>
-              
-              {/* Right - GIF (3 columns) */}
               <div className="md:col-span-3 rounded-2xl overflow-hidden border-2 border-gray-200 bg-white shadow-lg">
                 <img
                   src="/media/step1-upload.gif"
-
-                  alt="Upload your clinical documentation"
+                  alt="Upload your chart notes"
                   className="w-full h-auto"
                 />
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="grid md:grid-cols-5 gap-12 items-center">
-              {/* Left - Text (2 columns) */}
+            <div className="grid md:grid-cols-5 gap-6 md:gap-12 items-center">
               <div className="md:col-span-2">
                 <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-semibold mb-6"
+                  className="w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center text-xl md:text-2xl font-semibold mb-4 md:mb-6"
                   style={{ backgroundColor: '#f8f7eb', color: '#041e42' }}
                 >
                   02
                 </div>
                 <h3
-                  className="text-4xl uppercase mb-4"
+                  className="text-2xl md:text-4xl uppercase mb-3 md:mb-4"
                   style={{
                     fontFamily: 'Georgia, "Times New Roman", serif',
                     fontWeight: '700',
@@ -323,16 +335,13 @@ export function ClaimGradeHomepage() {
                 >
                   SELECT CODES FOR ANALYSIS
                 </h3>
-                <p className="text-lg" style={{ color: '#4a5568' }}>
+                <p className="text-base md:text-lg" style={{ color: '#4a5568' }}>
                   Choose the insurance codes you plan to use for billing. We'll analyze your documentation against each code's requirements.
                 </p>
               </div>
-              
-              {/* Right - GIF (3 columns) */}
               <div className="md:col-span-3 rounded-2xl overflow-hidden border-2 border-gray-200 bg-white shadow-lg">
                 <img
                   src="/media/step2-codes.gif"
-
                   alt="Select insurance codes for analysis"
                   className="w-full h-auto"
                 />
@@ -340,17 +349,16 @@ export function ClaimGradeHomepage() {
             </div>
 
             {/* Step 3 */}
-            <div className="grid md:grid-cols-5 gap-12 items-center">
-              {/* Left - Text (2 columns) */}
+            <div className="grid md:grid-cols-5 gap-6 md:gap-12 items-center">
               <div className="md:col-span-2">
                 <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-semibold mb-6"
+                  className="w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center text-xl md:text-2xl font-semibold mb-4 md:mb-6"
                   style={{ backgroundColor: '#f8f7eb', color: '#041e42' }}
                 >
                   03
                 </div>
                 <h3
-                  className="text-4xl uppercase mb-4"
+                  className="text-2xl md:text-4xl uppercase mb-3 md:mb-4"
                   style={{
                     fontFamily: 'Georgia, "Times New Roman", serif',
                     fontWeight: '700',
@@ -359,16 +367,13 @@ export function ClaimGradeHomepage() {
                 >
                   REVIEW RESULTS
                 </h3>
-                <p className="text-lg" style={{ color: '#4a5568' }}>
+                <p className="text-base md:text-lg" style={{ color: '#4a5568' }}>
                   Get instant, detailed feedback showing what's documented correctly and what's missing. Know exactly how to fix it.
                 </p>
               </div>
-              
-              {/* Right - GIF (3 columns) */}
               <div className="md:col-span-3 rounded-2xl overflow-hidden border-2 border-gray-200 bg-white shadow-lg">
                 <img
                   src="/media/step3-results.gif"
-
                   alt="Review your documentation grading results"
                   className="w-full h-auto"
                 />
@@ -379,11 +384,11 @@ export function ClaimGradeHomepage() {
       </section>
 
       {/* Results Breakdown Section */}
-      <section className="py-20" style={{ backgroundColor: '#041e42' }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-center gap-8 mb-8">
+      <section className="py-12 md:py-20" style={{ backgroundColor: '#041e42' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-center gap-8 mb-6 md:mb-8">
             <h2
-              className="text-7xl uppercase leading-none"
+              className="text-4xl sm:text-5xl md:text-7xl uppercase leading-none"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: '900',
@@ -393,7 +398,7 @@ export function ClaimGradeHomepage() {
               <div className="text-white">CRYSTAL CLEAR</div>
               <div className="inline-block relative mt-2">
                 <div
-                  className="absolute inset-0 -inset-x-4 -inset-y-2"
+                  className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
                   style={{ backgroundColor: '#f8f7eb', zIndex: 0 }}
                 />
                 <span className="relative z-10" style={{ color: '#041e42' }}>ANALYSIS &</span>
@@ -401,7 +406,7 @@ export function ClaimGradeHomepage() {
               <br />
               <div className="inline-block relative mt-2">
                 <div
-                  className="absolute inset-0 -inset-x-4 -inset-y-2"
+                  className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
                   style={{ backgroundColor: '#f8f7eb', zIndex: 0 }}
                 />
                 <span className="relative z-10" style={{ color: '#041e42' }}>FEEDBACK</span>
@@ -409,29 +414,29 @@ export function ClaimGradeHomepage() {
             </h2>
           </div>
 
-          <p className="text-center text-white text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
-            Every insurance code comes with specific documentation requirements—miss just one, and you risk denial or audit. ClaimGrade meticulously cross-references your clinical notes against each criterion, pinpointing exactly where your documentation is strong and where it needs reinforcement. Know your weak points before the insurance company does, and submit with confidence every time.
+          <p className="text-center text-white text-base md:text-xl max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed">
+            Every insurance code comes with specific documentation requirements—miss just one, and you risk denial or audit. ClaimGrade meticulously cross-references your chart notes against each criterion, pinpointing exactly where your documentation is strong and where it needs reinforcement. Know your weak points before the insurance company does, and submit with confidence every time.
           </p>
 
           {/* Code Analysis Screenshot Preview */}
-          <div className="max-w-5xl mx-auto mb-16">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+          <div className="max-w-5xl mx-auto mb-8 md:mb-16">
+            <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
               {/* Browser Chrome */}
-              <div className="bg-gray-100 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
+              <div className="bg-gray-100 border-b border-gray-200 px-3 md:px-4 py-2 md:py-3 flex items-center gap-2">
                 <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-400"></div>
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-400"></div>
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-400"></div>
                 </div>
                 <div className="flex-1 flex justify-center">
-                  <div className="bg-white rounded-lg px-4 py-1 text-xs text-gray-500 border border-gray-200">
+                  <div className="bg-white rounded-lg px-3 md:px-4 py-1 text-xs text-gray-500 border border-gray-200 hidden sm:block">
                     claimgrade.app/analysis
                   </div>
                 </div>
               </div>
               {/* Screenshot */}
-              <img 
-                src="/media/codescreenshot.png" 
+              <img
+                src="/media/codescreenshot.png"
                 alt="ClaimGrade code analysis interface showing detailed documentation feedback"
                 className="w-full h-auto"
               />
@@ -442,14 +447,14 @@ export function ClaimGradeHomepage() {
       </section>
 
       {/* Waitlist Form */}
-      <section id="waitlist" className="py-20" style={{ backgroundColor: '#f8f7eb' }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="waitlist" className="py-12 md:py-20" style={{ backgroundColor: '#f8f7eb' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left - Header & Copy */}
             <div className="text-center">
-              <h2 
-                className="text-7xl uppercase leading-none mb-6"
-                style={{ 
+              <h2
+                className="text-4xl sm:text-5xl md:text-7xl uppercase leading-none mb-4 md:mb-6"
+                style={{
                   fontFamily: 'Georgia, "Times New Roman", serif',
                   fontWeight: '900',
                   letterSpacing: '-1px'
@@ -457,21 +462,21 @@ export function ClaimGradeHomepage() {
               >
                 <div style={{ color: '#041e42' }}>JOIN THE</div>
                 <div className="inline-block relative mt-2">
-                  <div 
-                    className="absolute inset-0 -inset-x-4 -inset-y-2"
+                  <div
+                    className="absolute inset-0 -inset-x-3 md:-inset-x-4 -inset-y-1 md:-inset-y-2"
                     style={{ backgroundColor: '#041e42', zIndex: 0 }}
                   />
                   <span className="relative z-10 text-white">WAITLIST</span>
                 </div>
               </h2>
-              
-              <p className="text-lg leading-relaxed" style={{ color: '#041e42' }}>
+
+              <p className="text-base md:text-lg leading-relaxed" style={{ color: '#041e42' }}>
                 ClaimGrade is currently in beta, and we're selectively partnering with a limited number of facilities across the country to fine-tune our analysis and ensure maximum accuracy. Request early access to be among the first to experience documentation review that actually works.
               </p>
             </div>
 
             {/* Right - Form */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100">
               {formStatus === 'success' ? (
                 <div className="p-8 text-center">
                   <h3 
@@ -558,38 +563,49 @@ export function ClaimGradeHomepage() {
         </div>
       </footer>
 
-      {/* Hero entrance animations */}
+      {/* Hero animations */}
       <style>{`
         @keyframes fadeSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-line-1 {
           animation: fadeSlideUp 0.8s ease-out both;
           animation-delay: 0.1s;
         }
-
         .hero-line-2 {
           animation: fadeSlideUp 0.8s ease-out both;
           animation-delay: 0.3s;
         }
-
         .hero-subtext {
           animation: fadeSlideUp 0.8s ease-out both;
           animation-delay: 0.55s;
         }
-
         .hero-ctas {
           animation: fadeSlideUp 0.8s ease-out both;
           animation-delay: 0.75s;
         }
+
+        /* Concept 1: Living Document */
+        @keyframes scrollUp {
+          from { transform: translateY(0); }
+          to { transform: translateY(-33.33%); }
+        }
+        .doc-scroll-container {
+          animation: scrollUp 30s linear infinite;
+        }
+        @keyframes scanDown {
+          0% { top: -48px; }
+          100% { top: 100%; }
+        }
+        .scan-beam {
+          animation: scanDown 4s ease-in-out infinite;
+        }
+        .doc-line {
+          opacity: 0.7;
+        }
+
       `}</style>
     </div>
   );
