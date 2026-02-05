@@ -113,22 +113,51 @@ export function ClaimGradeHomepage() {
       </header>
 
       {/* Hero Section */}
-      <section 
+      <section
         className="py-20 pb-56 relative overflow-hidden"
-        style={{ backgroundColor: '#041e42' }}
+        style={{ background: 'linear-gradient(135deg, #041e42 0%, #0a2a52 40%, #061f3d 100%)' }}
       >
+        {/* Grain texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '256px 256px'
+          }}
+        />
+
+        {/* Subtle dot grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(248,247,235,0.07) 1px, transparent 1px)',
+            backgroundSize: '32px 32px'
+          }}
+        />
+
+        {/* Accent glow behind headline */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            width: '800px',
+            height: '400px',
+            background: 'radial-gradient(ellipse, rgba(248,247,235,0.06) 0%, transparent 70%)',
+          }}
+        />
+
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-          
-          <h1 
-            className="text-7xl uppercase mb-8 leading-none"
-            style={{ 
+
+          <h1
+            className="text-7xl uppercase mb-8 leading-none hero-headline"
+            style={{
               fontFamily: 'Georgia, "Times New Roman", serif',
               fontWeight: '900',
               letterSpacing: '-1px'
             }}
           >
-            <div className="text-white">AUTONOMOUSLY REVIEW</div>
-            <div className="inline-block relative mt-2">
+            <div className="text-white hero-line-1">AUTONOMOUSLY REVIEW</div>
+            <div className="inline-block relative mt-2 hero-line-2">
               <div
                 className="absolute inset-0 -inset-x-4 -inset-y-2"
                 style={{ backgroundColor: '#f8f7eb', zIndex: -1 }}
@@ -137,15 +166,15 @@ export function ClaimGradeHomepage() {
             </div>
           </h1>
 
-          <p className="text-white mx-auto mb-8 text-lg" style={{ maxWidth: '605px' }}>
+          <p className="text-white/80 mx-auto mb-10 text-lg hero-subtext" style={{ maxWidth: '605px' }}>
             A tool purpose-built to review clinical documentation for policy compliance and accuracy – it's like having an expert looking over your shoulder.
           </p>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center hero-ctas">
             <a
               href="#how-it-works"
-              className="px-8 py-4 rounded-full uppercase transition-opacity hover:opacity-90"
-              style={{ 
+              className="group px-8 py-4 rounded-full uppercase transition-all duration-300 hover:shadow-lg hover:shadow-[#f8f7eb]/10 hover:scale-[1.02]"
+              style={{
                 backgroundColor: '#f8f7eb',
                 color: '#041e42',
                 fontFamily: 'Georgia, "Times New Roman", serif',
@@ -157,12 +186,15 @@ export function ClaimGradeHomepage() {
             </a>
             <a
               href="#waitlist"
-              className="px-8 py-4 rounded-full uppercase bg-white transition-opacity hover:opacity-90"
-              style={{ 
-                color: '#041e42',
+              className="px-8 py-4 rounded-full uppercase transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                color: '#f8f7eb',
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: '700',
-                letterSpacing: '1px'
+                letterSpacing: '1px',
+                border: '1px solid rgba(248,247,235,0.3)',
+                background: 'rgba(248,247,235,0.05)',
+                backdropFilter: 'blur(8px)',
               }}
             >
               Sign up for waitlist
@@ -170,6 +202,13 @@ export function ClaimGradeHomepage() {
           </div>
         </div>
 
+        {/* Subtle edge vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)'
+          }}
+        />
       </section>
 
       {/* Floating Product Preview - Realistic Screenshot */}
@@ -518,6 +557,40 @@ export function ClaimGradeHomepage() {
           </p>
         </div>
       </footer>
+
+      {/* Hero entrance animations */}
+      <style>{`
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .hero-line-1 {
+          animation: fadeSlideUp 0.8s ease-out both;
+          animation-delay: 0.1s;
+        }
+
+        .hero-line-2 {
+          animation: fadeSlideUp 0.8s ease-out both;
+          animation-delay: 0.3s;
+        }
+
+        .hero-subtext {
+          animation: fadeSlideUp 0.8s ease-out both;
+          animation-delay: 0.55s;
+        }
+
+        .hero-ctas {
+          animation: fadeSlideUp 0.8s ease-out both;
+          animation-delay: 0.75s;
+        }
+      `}</style>
     </div>
   );
 }
